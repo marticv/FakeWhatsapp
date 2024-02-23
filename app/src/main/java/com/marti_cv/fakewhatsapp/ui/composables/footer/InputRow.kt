@@ -41,6 +41,7 @@ fun InputRow(modifier: Modifier) {
     ) {
         val configuration = LocalConfiguration.current
         val screenWidth = configuration.screenWidthDp
+        val textWidth = screenWidth-140
 
         Icon(
             imageVector = Icons.Filled.Mood,
@@ -57,7 +58,7 @@ fun InputRow(modifier: Modifier) {
             ),
             onValueChange = { text = it },
             placeholder = { Text(text = "Mensaje", color = BottomIconTint) },
-            modifier = modifier.width((screenWidth*6/11).dp)
+            modifier = modifier.width(textWidth.dp)
         )
         Icon(
             imageVector = Icons.Default.AttachFile,
