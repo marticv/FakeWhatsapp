@@ -2,12 +2,10 @@ package com.marti_cv.fakewhatsapp.ui.composables.body
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
@@ -25,19 +23,23 @@ fun Body(modifier: Modifier) {
                 contentScale = ContentScale.FillBounds
             )
     ) {
-        LazyColumn(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(2.dp),
+            modifier = Modifier.fillMaxWidth()
+        ) {
             item {
-                MyMessage(
-                    text = "hi",
-                    time = "18:00",
-                    modifier = Modifier.align(Alignment.CenterEnd)
+                MessageItem(
+                    text = "lorem ipsum dolor sit amet consectetur adipiscing elit." +
+                            " Duis sed dui at enim lacinia commodo.",
+                    time = "12:00",
+                    isFromUser = false
                 )
             }
             item {
-                MyMessage(
-                    text = "Im fine",
-                    time = "18:01",
-                    modifier = Modifier.align(Alignment.CenterEnd)
+                MessageItem(
+                    text = "lorem ipsum dolor sit amet.",
+                    time = "12:01",
+                    isFromUser = true
                 )
             }
         }

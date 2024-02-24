@@ -27,20 +27,14 @@ fun FakeWhatsappScreen() {
             val (header, body, footer) = createRefs()
 
             Header(modifier = Modifier.constrainAs(header) { top.linkTo(parent.top) },
-                onClickBack = { showScreen = !showScreen })
+                onClickBack = { showScreen = !showScreen },
+                chatName = "Fake friend")
             Body(modifier = Modifier.constrainAs(body) {top.linkTo(header.bottom)})
             Footer(modifier = Modifier.constrainAs(footer) { bottom.linkTo(parent.bottom) })
         }
-
     } else {
         InfoScreen {
             showScreen = !showScreen
         }
     }
-}
-
-@Preview
-@Composable
-fun FakeWhatsappScreenPreview() {
-    Header(modifier = Modifier, onClickBack = {})
 }

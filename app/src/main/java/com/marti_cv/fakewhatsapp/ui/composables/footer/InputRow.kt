@@ -41,7 +41,7 @@ fun InputRow(modifier: Modifier) {
     ) {
         val configuration = LocalConfiguration.current
         val screenWidth = configuration.screenWidthDp
-        val textWidth = screenWidth-140
+        val textWidth = screenWidth-184
 
         Icon(
             imageVector = Icons.Filled.Mood,

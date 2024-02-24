@@ -15,7 +15,7 @@ import com.marti_cv.fakewhatsapp.ui.theme.Background
 
 
 @Composable
-fun Header(modifier: Modifier, onClickBack: () -> Unit) {
+fun Header(modifier: Modifier, onClickBack: () -> Unit, chatName: String) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -23,8 +23,8 @@ fun Header(modifier: Modifier, onClickBack: () -> Unit) {
             .background(Background),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
-        ) {
-        UserGroup(modifier = modifier, onClickBack={onClickBack()})
+    ) {
+        UserGroup(chatName = chatName, modifier = modifier, onClickBack = { onClickBack() })
         IconsGroup(modifier = modifier)
     }
 }

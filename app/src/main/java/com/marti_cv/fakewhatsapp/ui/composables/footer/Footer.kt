@@ -19,7 +19,7 @@ import com.marti_cv.fakewhatsapp.ui.composables.footer.MicroButton
 fun Footer(modifier: Modifier) {
     Row(
         modifier = modifier
-            .padding(vertical = 4.dp)
+            .padding(vertical = 4.dp, horizontal = 4.dp)
             .horizontalScroll(rememberScrollState()),
         verticalAlignment = Alignment.Bottom
     ) {
