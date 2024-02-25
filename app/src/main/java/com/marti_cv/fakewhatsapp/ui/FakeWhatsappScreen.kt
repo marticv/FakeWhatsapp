@@ -19,10 +19,8 @@ import com.marti_cv.fakewhatsapp.ui.composables.header.Header
 fun FakeWhatsappScreen(viewModel: FakeWhatsappScreenViewModel) {
 
     val showScreen by viewModel.showScreen.observeAsState(false)
-
-    var chatName: String by rememberSaveable {
-        mutableStateOf("")
-    }
+    val chatName by viewModel.chatName.observeAsState("")
+    val isStartButtonEnabled by viewModel.isStartButtonEnabled.observeAsState(false)
 
     if (showScreen) {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
@@ -38,6 +36,11 @@ fun FakeWhatsappScreen(viewModel: FakeWhatsappScreenViewModel) {
             Footer(modifier = Modifier.constrainAs(footer) { bottom.linkTo(parent.bottom) })
         }
     } else {
-        InfoScreen(onClick = { viewModel.changeShowScreenState() })
+        InfoScreen(
+            onClick = { viewModel.changeShowScreenState() },
+            chatName = chatName,
+            changeChatName = { viewModel.addName(it) },
+            isButtonEnabled = isStartButtonEnabled
+        )
     }
 }

@@ -34,4 +34,24 @@ class FakeWhatsappScreenViewModelTest {
         assert(viewModel.showScreen.value == true)
     }
 
+    @Test
+    fun addNameTest(){
+        viewModel.addName("test")
+        assert(viewModel.chatName.value == "test")
+    }
+
+    @Test
+    fun `If name is les than 3 characters then startButton is not enabled`() {
+        viewModel.addName("")
+        viewModel.enableButton()
+        assert(viewModel.isStartButtonEnabled.value == false)
+    }
+
+    @Test
+    fun `If name is 3 or more characters then startButton is enabled`() {
+        viewModel.addName("ttt")
+        viewModel.enableButton()
+        assert(viewModel.isStartButtonEnabled.value == true)
+    }
+
 }
