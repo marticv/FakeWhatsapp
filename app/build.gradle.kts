@@ -16,7 +16,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.android.dagger.CustomTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -68,6 +68,8 @@ dependencies {
 
     //dagger hilt
     implementation("com.google.dagger:hilt-android:2.44")
+    implementation("androidx.test:runner:1.5.2")
+    implementation("com.google.ar:core:1.41.0")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 
     //LiveData para corrutinas
@@ -81,6 +83,18 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // For Robolectric tests.
+    testImplementation("com.google.dagger:hilt-android-testing:2.44")
+    // ...with Kotlin.
+    kaptTest("com.google.dagger:hilt-android-compiler:2.44")
+    // For instrumented tests.
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.44")
+    // ...with Kotlin.
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.44")
+    //Robolecrtic
+    testImplementation("org.robolectric:robolectric:4.11.1")
+
 }
 
 kapt {
