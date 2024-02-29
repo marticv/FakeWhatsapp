@@ -1,6 +1,7 @@
 package com.marti_cv.fakewhatsapp.ui.composables.footer
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -30,8 +31,7 @@ import com.marti_cv.fakewhatsapp.ui.theme.BottomIconTint
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InputRow(modifier: Modifier) {
-    var text: String by rememberSaveable { mutableStateOf("") }
+fun InputRow(text:String,onTextChanged:(String)->Unit,onIconPressed:(String)->Unit,modifier: Modifier) {
 
     Row(
         modifier = Modifier
@@ -49,6 +49,7 @@ fun InputRow(modifier: Modifier) {
             tint = BottomIconTint,
             modifier = modifier
                 .padding(horizontal = 8.dp, vertical = 16.dp)
+                .clickable { onIconPressed(text) }
         )
         TextField(
             value = text,
@@ -56,7 +57,7 @@ fun InputRow(modifier: Modifier) {
                 containerColor = Background,
                 textColor = BottomIconTint
             ),
-            onValueChange = { text = it },
+            onValueChange = { onTextChanged(it) },
             placeholder = { Text(text = "Mensaje", color = BottomIconTint) },
             modifier = modifier.width(textWidth.dp)
         )

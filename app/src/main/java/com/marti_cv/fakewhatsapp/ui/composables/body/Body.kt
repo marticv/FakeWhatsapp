@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
@@ -12,9 +13,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.marti_cv.fakewhatsapp.R
+import com.marti_cv.fakewhatsapp.ui.model.MessageModel
 
 @Composable
-fun Body(modifier: Modifier) {
+fun Body(messageList: List<MessageModel>,modifier: Modifier) {
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -27,20 +29,8 @@ fun Body(modifier: Modifier) {
             verticalArrangement = Arrangement.spacedBy(2.dp),
             modifier = Modifier.fillMaxWidth()
         ) {
-            item {
-                MessageItem(
-                    text = "lorem ipsum dolor sit amet consectetur adipiscing elit." +
-                            " Duis sed dui at enim lacinia commodo.",
-                    time = "12:00",
-                    isFromUser = false
-                )
-            }
-            item {
-                MessageItem(
-                    text = "lorem ipsum dolor sit amet.",
-                    time = "12:01",
-                    isFromUser = true
-                )
+            items(messageList, key = {it.id}){messages->
+                MessageItem(message = messages)
             }
         }
     }

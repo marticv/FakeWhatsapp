@@ -18,9 +18,7 @@ class FakeWhatsappScreenViewModelTest {
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
-
-
-    lateinit var viewModel: FakeWhatsappScreenViewModel
+    private lateinit var viewModel: FakeWhatsappScreenViewModel
 
     @Before
     fun setUp() {
@@ -52,6 +50,34 @@ class FakeWhatsappScreenViewModelTest {
         viewModel.addName("ttt")
         viewModel.enableButton()
         assert(viewModel.isStartButtonEnabled.value == true)
+    }
+
+    @Test
+    fun `If text is added then MessageList increases`() {
+        val initialListSize = viewModel.MessageList.size
+        viewModel.addMessage("text")
+        assert(viewModel.MessageList.size == initialListSize + 1)
+    }
+
+    @Test
+    fun `If text is added then bubble is created`() {
+        val initialListSize = viewModel.MessageList.size
+        viewModel.addMessage("text")
+        assert(viewModel.MessageList.size == initialListSize + 1)
+    }
+
+    @Test
+    fun `If Faketext is added then MessageList increases`() {
+        val initialListSize = viewModel.MessageList.size
+        viewModel.addMessage("text")
+        assert(viewModel.MessageList.size == initialListSize + 1)
+    }
+
+    @Test
+    fun `If Faketext is added then bubble is created`() {
+        val initialListSize = viewModel.MessageList.size
+        viewModel.addFakeMessage("text")
+        assert(viewModel.MessageList.size == initialListSize + 1)
     }
 
 }

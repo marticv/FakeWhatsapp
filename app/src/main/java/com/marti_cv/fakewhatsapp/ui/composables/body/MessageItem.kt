@@ -7,9 +7,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.marti_cv.fakewhatsapp.ui.model.MessageModel
 
 @Composable
-fun MessageItem(text: String, time: String, isFromUser: Boolean) {
+fun MessageItem(message: MessageModel) {
+    val text = message.text
+    val time = message.time
+    val isFromUser = message.isFromUser
+
     Row(
         modifier = Modifier.fillMaxWidth().padding(12.dp),
         horizontalArrangement = if (isFromUser) {
@@ -24,5 +29,4 @@ fun MessageItem(text: String, time: String, isFromUser: Boolean) {
             FakeMessage(text = text, time = time)
         }
     }
-
 }

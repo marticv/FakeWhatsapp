@@ -13,6 +13,7 @@ import com.marti_cv.fakewhatsapp.ui.composables.InfoScreen
 import com.marti_cv.fakewhatsapp.ui.composables.body.Body
 import com.marti_cv.fakewhatsapp.ui.composables.footer.Footer
 import com.marti_cv.fakewhatsapp.ui.composables.header.Header
+import com.marti_cv.fakewhatsapp.ui.model.MessageModel
 
 
 @Composable
@@ -21,6 +22,9 @@ fun FakeWhatsappScreen(viewModel: FakeWhatsappScreenViewModel) {
     val showScreen by viewModel.showScreen.observeAsState(false)
     val chatName by viewModel.chatName.observeAsState("")
     val isStartButtonEnabled by viewModel.isStartButtonEnabled.observeAsState(false)
+    val text by viewModel.text.observeAsState("")
+    val messages: List<MessageModel> = viewModel.MessageList
+
 
     if (showScreen) {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
@@ -32,8 +36,15 @@ fun FakeWhatsappScreen(viewModel: FakeWhatsappScreenViewModel) {
                 onClickBack = { viewModel.changeShowScreenState() },
                 chatName = chatName
             )
-            Body(modifier = Modifier.constrainAs(body) { top.linkTo(header.bottom) })
-            Footer(modifier = Modifier.constrainAs(footer) { bottom.linkTo(parent.bottom) })
+            Body(
+                messageList = messages,
+                modifier = Modifier.constrainAs(body) { top.linkTo(header.bottom) })
+            Footer(
+                text = text,
+                onTextChanged = {viewModel.onTextChanged(it)},
+                onCreateMessage = { viewModel.addMessage(text) },
+                onIconPressed = { viewModel.addFakeMessage(text) },
+                modifier = Modifier.constrainAs(footer) { bottom.linkTo(parent.bottom) })
         }
     } else {
         InfoScreen(

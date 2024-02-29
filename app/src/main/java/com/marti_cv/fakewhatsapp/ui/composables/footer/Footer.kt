@@ -16,15 +16,26 @@ import com.marti_cv.fakewhatsapp.ui.composables.footer.MicroButton
 
 
 @Composable
-fun Footer(modifier: Modifier) {
+fun Footer(
+    text: String,
+    onTextChanged: (String) -> Unit,
+    onCreateMessage: (String) -> Unit,
+    onIconPressed: (String) -> Unit,
+    modifier: Modifier
+) {
     Row(
         modifier = modifier
             .padding(vertical = 4.dp, horizontal = 4.dp)
             .horizontalScroll(rememberScrollState()),
         verticalAlignment = Alignment.Bottom
     ) {
-        InputRow(modifier = modifier.padding(start = 2.dp))
+        InputRow(
+            text = text,
+            onTextChanged = { onTextChanged(it) },
+            onIconPressed ={onIconPressed(text)},
+            modifier = modifier.padding(start = 2.dp)
+        )
         Spacer(modifier = modifier.width(4.dp))
-        MicroButton(modifier = modifier)
+        MicroButton(text = text, onCreateMessage = { onCreateMessage(text) }, modifier = modifier)
     }
 }

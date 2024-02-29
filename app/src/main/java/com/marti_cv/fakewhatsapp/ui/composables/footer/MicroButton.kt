@@ -13,9 +13,9 @@ import com.marti_cv.fakewhatsapp.ui.theme.BottomButton
 import com.marti_cv.fakewhatsapp.ui.theme.TopIconTint
 
 @Composable
-fun MicroButton(modifier: Modifier) {
+fun MicroButton(modifier: Modifier,text:String, onCreateMessage:(String)->Unit) {
     FilledIconButton(
-        onClick = { },
+        onClick = { onCreateMessage(text) },
         colors = IconButtonDefaults.filledIconButtonColors(containerColor = BottomButton),
         modifier = modifier.size(56.dp)
     ) {
