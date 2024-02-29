@@ -23,12 +23,14 @@ class FakeWhatsappScreenViewModel @Inject constructor() : ViewModel() {
     private val _text = MutableLiveData<String>()
     val text: LiveData<String> = _text
 
-    private val _MessageList = mutableStateListOf<MessageModel>()
-    val MessageList: List<MessageModel> = _MessageList
+    private val _messageList = mutableStateListOf<MessageModel>()
+    val messageList: List<MessageModel> = _messageList
 
     init {
         _showScreen.value = false
         _isStartButtonEnabled.value = false
+        _chatName.value = ""
+        _text.value = ""
     }
 
     /**
@@ -39,10 +41,20 @@ class FakeWhatsappScreenViewModel @Inject constructor() : ViewModel() {
     }
 
     /**
+     * Change the chatname end to ... if chatname is more than 10
+     */
+    private fun addEllipsis() {
+        if (_chatName.value!!.length > 10) {
+            _chatName.value = chatName.value?.substring(0, 10) + "..."
+        }
+    }
+
+    /**
      * Change the value of chatName and the value of isStartButtonEnabled if necessary
      */
     fun addName(name: String) {
         _chatName.value = name
+        addEllipsis()
         enableButton()
     }
 
@@ -57,16 +69,31 @@ class FakeWhatsappScreenViewModel @Inject constructor() : ViewModel() {
         }
     }
 
+    /**
+     * Add a message to the list
+     */
     fun addMessage(text: String) {
-        val message = MessageModel(text=text, isFromUser = true)
-        _MessageList.add(message)
+        if (text.trim().isNotEmpty()) {
+            val message = MessageModel(text = text, isFromUser = true)
+            _messageList.add(message)
+            _text.value = ""
+        }
     }
 
+    /**
+     * Add a fake message to the list
+     */
     fun addFakeMessage(text: String) {
-        val fakeMessage = MessageModel(text=text, isFromUser = false)
-        _MessageList.add(fakeMessage)
+        if (text.trim().isNotEmpty()) {
+            val fakeMessage = MessageModel(text = text, isFromUser = false)
+            _messageList.add(fakeMessage)
+            _text.value = ""
+        }
     }
 
+    /**
+     * Change the value of text depending on the user input
+     */
     fun onTextChanged(userText: String) {
         _text.value = userText
     }

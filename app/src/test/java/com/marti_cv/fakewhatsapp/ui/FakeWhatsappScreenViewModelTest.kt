@@ -26,6 +26,15 @@ class FakeWhatsappScreenViewModelTest {
         viewModel = FakeWhatsappScreenViewModel()
     }
 
+    //test function that checks the initial state
+    @Test
+    fun initialTest(){
+        assert(viewModel.showScreen.value == false)
+        assert(viewModel.isStartButtonEnabled.value == false)
+        assert(viewModel.chatName.value == "")
+        assert(viewModel.text.value == "")
+    }
+
     @Test
     fun changeShowScreenStateTest(){
         viewModel.changeShowScreenState()
@@ -36,6 +45,11 @@ class FakeWhatsappScreenViewModelTest {
     fun addNameTest(){
         viewModel.addName("test")
         assert(viewModel.chatName.value == "test")
+    }
+
+    @Test
+    fun `If name is to long then name shortens and end with 3dots`() {
+        val nameLength = viewModel.chatName.value!!.length
     }
 
     @Test
@@ -54,30 +68,45 @@ class FakeWhatsappScreenViewModelTest {
 
     @Test
     fun `If text is added then MessageList increases`() {
-        val initialListSize = viewModel.MessageList.size
+        val initialListSize = viewModel.messageList.size
         viewModel.addMessage("text")
-        assert(viewModel.MessageList.size == initialListSize + 1)
+        assert(viewModel.messageList.size == initialListSize + 1)
     }
 
     @Test
     fun `If text is added then bubble is created`() {
-        val initialListSize = viewModel.MessageList.size
+        val initialListSize = viewModel.messageList.size
         viewModel.addMessage("text")
-        assert(viewModel.MessageList.size == initialListSize + 1)
+        assert(viewModel.messageList.size == initialListSize + 1)
+    }
+
+    @Test
+    fun `If text is empty then bubble is not created`() {
+        val initialListSize = viewModel.messageList.size
+        viewModel.addMessage(" ")
+        assert(viewModel.messageList.size == initialListSize)
     }
 
     @Test
     fun `If Faketext is added then MessageList increases`() {
-        val initialListSize = viewModel.MessageList.size
+        val initialListSize = viewModel.messageList.size
         viewModel.addMessage("text")
-        assert(viewModel.MessageList.size == initialListSize + 1)
+        assert(viewModel.messageList.size == initialListSize + 1)
     }
 
     @Test
     fun `If Faketext is added then bubble is created`() {
-        val initialListSize = viewModel.MessageList.size
+        val initialListSize = viewModel.messageList.size
         viewModel.addFakeMessage("text")
-        assert(viewModel.MessageList.size == initialListSize + 1)
+        assert(viewModel.messageList.size == initialListSize + 1)
     }
+
+    @Test
+    fun `If text is empty then Fakebubble is not created`() {
+        val initialListSize = viewModel.messageList.size
+        viewModel.addFakeMessage("")
+        assert(viewModel.messageList.size == initialListSize)
+    }
+
 
 }

@@ -4,9 +4,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.marti_cv.fakewhatsapp.ui.composables.InfoScreen
@@ -23,8 +20,7 @@ fun FakeWhatsappScreen(viewModel: FakeWhatsappScreenViewModel) {
     val chatName by viewModel.chatName.observeAsState("")
     val isStartButtonEnabled by viewModel.isStartButtonEnabled.observeAsState(false)
     val text by viewModel.text.observeAsState("")
-    val messages: List<MessageModel> = viewModel.MessageList
-
+    val messages: List<MessageModel> = viewModel.messageList
 
     if (showScreen) {
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
