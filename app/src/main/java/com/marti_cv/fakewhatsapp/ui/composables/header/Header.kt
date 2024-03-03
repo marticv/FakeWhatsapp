@@ -1,5 +1,6 @@
 package com.marti_cv.fakewhatsapp.ui.composables.header
 
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -15,7 +16,7 @@ import com.marti_cv.fakewhatsapp.ui.theme.Background
 
 
 @Composable
-fun Header(modifier: Modifier, onClickBack: () -> Unit, chatName: String) {
+fun Header(modifier: Modifier, onClickBack: () -> Unit, chatName: String, uri: Uri) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -24,7 +25,7 @@ fun Header(modifier: Modifier, onClickBack: () -> Unit, chatName: String) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        UserGroup(chatName = chatName, modifier = modifier, onClickBack = { onClickBack() })
+        UserGroup(uri = uri, chatName = chatName, modifier = modifier, onClickBack = { onClickBack() })
         IconsGroup(modifier = modifier)
     }
 }

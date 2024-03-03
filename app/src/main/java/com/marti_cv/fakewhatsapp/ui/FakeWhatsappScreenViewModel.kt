@@ -1,6 +1,13 @@
 package com.marti_cv.fakewhatsapp.ui
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.lifecycle.LiveData
@@ -28,11 +35,19 @@ class FakeWhatsappScreenViewModel @Inject constructor() : ViewModel() {
     private val _messageList = mutableStateListOf<MessageModel>()
     val messageList: List<MessageModel> = _messageList
 
+    private val _imageUri = MutableLiveData<Uri>()
+    val imageUri: LiveData<Uri> = _imageUri
+
+
     init {
         _showScreen.value = false
         _isStartButtonEnabled.value = false
         _chatName.value = ""
         _text.value = ""
+    }
+
+    fun getUri(uri: Uri){
+        _imageUri.value = uri
     }
 
     /**

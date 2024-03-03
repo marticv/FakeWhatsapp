@@ -1,13 +1,29 @@
 package com.marti_cv.fakewhatsapp.ui
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import coil.compose.rememberAsyncImagePainter
 import com.marti_cv.fakewhatsapp.ui.composables.InfoScreen
 import com.marti_cv.fakewhatsapp.ui.composables.body.Body
 import com.marti_cv.fakewhatsapp.ui.composables.footer.Footer
@@ -23,6 +39,17 @@ fun FakeWhatsappScreen(viewModel: FakeWhatsappScreenViewModel) {
     val chatName by viewModel.chatName.observeAsState("")
     val isStartButtonEnabled by viewModel.isStartButtonEnabled.observeAsState(false)
     val text by viewModel.text.observeAsState("")
+    val imageUri by viewModel.imageUri.observeAsState(Uri.EMPTY)
+
+    val galleryLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent(),
+        onResult = { uri ->
+            uri?.let {
+                viewModel.getUri(it)
+            }
+        }
+    )
+
     val messages: List<MessageModel> = viewModel.messageList
     val controller = LocalSoftwareKeyboardController.current
 
@@ -37,7 +64,8 @@ fun FakeWhatsappScreen(viewModel: FakeWhatsappScreenViewModel) {
                     viewModel.clearMessageList()
                     viewModel.changeShowScreenState()
                 },
-                chatName = chatName
+                chatName = chatName,
+                uri = imageUri
             )
             Body(messageList = messages, modifier = Modifier.constrainAs(body) {
                 top.linkTo(header.bottom)
@@ -51,11 +79,35 @@ fun FakeWhatsappScreen(viewModel: FakeWhatsappScreenViewModel) {
             }, modifier = Modifier.constrainAs(footer) { bottom.linkTo(parent.bottom) })
         }
     } else {
-        InfoScreen(
-            onClick = { viewModel.changeShowScreenState() },
-            chatName = chatName,
-            changeChatName = { viewModel.addName(it) },
-            isButtonEnabled = isStartButtonEnabled
-        )
+        Column {
+            InfoScreen(
+                onClick = { viewModel.changeShowScreenState() },
+                chatName = chatName,
+                changeChatName = { viewModel.addName(it) },
+                isButtonEnabled = isStartButtonEnabled
+            )
+            imageUri?.let {
+                Image(
+                    painter = rememberAsyncImagePainter(model = imageUri),
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds,
+                    modifier = Modifier
+                        .clip(CircleShape)
+                        .size(36.dp)
+                )
+            }
+
+            TextButton(
+                onClick = {
+                    galleryLauncher.launch("image/*")
+                }
+            ) {
+                Text(
+                    text = "Pick image"
+                )
+            }
+        }
+
     }
+
 }

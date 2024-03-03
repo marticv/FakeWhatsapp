@@ -1,5 +1,6 @@
 package com.marti_cv.fakewhatsapp.ui.composables.header
 
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -20,11 +21,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
 import com.marti_cv.fakewhatsapp.R
 import com.marti_cv.fakewhatsapp.ui.theme.TopIconTint
 
 @Composable
-fun UserGroup(chatName: String, modifier: Modifier, onClickBack: () -> Unit) {
+fun UserGroup(uri: Uri, chatName: String, modifier: Modifier, onClickBack: () -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(
             imageVector = Icons.Default.ArrowBack,
@@ -32,14 +34,26 @@ fun UserGroup(chatName: String, modifier: Modifier, onClickBack: () -> Unit) {
             tint = TopIconTint,
             modifier = modifier
                 .clickable { onClickBack() })
-        Image(
-            painterResource(id = R.drawable.test_image),
-            contentDescription = "Receptor image",
-            contentScale = ContentScale.FillBounds,
-            modifier = modifier
-                .clip(CircleShape)
-                .size(36.dp)
-        )
+        if (uri != Uri.EMPTY) {
+            Image(
+                painter = rememberAsyncImagePainter(model = uri),
+                contentDescription = "user imager",
+                contentScale = ContentScale.FillBounds,
+                modifier = modifier
+                    .clip(CircleShape)
+                    .size(36.dp)
+            )
+        } else {
+            Image(
+                painterResource(id = R.drawable.test_image),
+                contentDescription = "Receptor image",
+                contentScale = ContentScale.FillBounds,
+                modifier = modifier
+                    .clip(CircleShape)
+                    .size(36.dp)
+            )
+        }
+
         Text(
             text = chatName,
             color = TopIconTint,
