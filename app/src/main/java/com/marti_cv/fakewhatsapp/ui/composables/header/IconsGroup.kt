@@ -7,6 +7,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Videocam
+import androidx.compose.material.icons.rounded.Call
+import androidx.compose.material.icons.rounded.Videocam
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,14 +19,14 @@ import com.marti_cv.fakewhatsapp.ui.theme.TopIconTint
 fun IconsGroup(modifier: Modifier){
     Row() {
         Icon(
-            imageVector = Icons.Filled.Videocam,
+            imageVector = Icons.Rounded.Videocam,
             contentDescription = "camera icon",
             tint = TopIconTint,
             modifier = modifier
                 .padding(vertical = 16.dp, horizontal = 8.dp)
         )
         Icon(
-            imageVector = Icons.Default.Call,
+            imageVector = Icons.Rounded.Call,
             contentDescription = "call icon",
             tint = TopIconTint,
             modifier = modifier

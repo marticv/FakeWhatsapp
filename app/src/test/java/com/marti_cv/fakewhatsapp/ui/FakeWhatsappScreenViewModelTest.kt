@@ -108,5 +108,13 @@ class FakeWhatsappScreenViewModelTest {
         assert(viewModel.messageList.size == initialListSize)
     }
 
+    @Test
+    fun `When back is pressed then MessageList size is zero`() {
+        viewModel.addFakeMessage("hi I'm a test")
+        viewModel.addMessage("hi I'm a test")
+        viewModel.clearMessageList()
+        assert(viewModel.messageList.isEmpty())
+    }
+
 
 }

@@ -33,7 +33,9 @@ fun InfoScreen(
         Text(text = "App para fingir conversaciones de Whatsapp. Introduce el nombre del chat.")
         TextField(
             value = chatName,
-            onValueChange = { changeChatName(it) })
+            onValueChange = { changeChatName(it) },
+            maxLines = 1,
+            singleLine = true)
         Text(text = "Nombre en el chat: $chatName")
         Button(
             onClick = { onClick() },

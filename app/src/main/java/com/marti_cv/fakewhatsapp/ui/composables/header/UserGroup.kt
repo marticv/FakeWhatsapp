@@ -16,13 +16,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.marti_cv.fakewhatsapp.R
 import com.marti_cv.fakewhatsapp.ui.theme.TopIconTint
 
 @Composable
-fun UserGroup(chatName:String, modifier: Modifier, onClickBack: () -> Unit) {
+fun UserGroup(chatName: String, modifier: Modifier, onClickBack: () -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(
             imageVector = Icons.Default.ArrowBack,
@@ -39,7 +41,11 @@ fun UserGroup(chatName:String, modifier: Modifier, onClickBack: () -> Unit) {
                 .size(36.dp)
         )
         Text(
-            text = chatName, color = TopIconTint, modifier = Modifier
+            text = chatName,
+            color = TopIconTint,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier
                 .padding(horizontal = 8.dp)
         )
     }

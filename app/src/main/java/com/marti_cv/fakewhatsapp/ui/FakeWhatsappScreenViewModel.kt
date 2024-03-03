@@ -1,6 +1,8 @@
 package com.marti_cv.fakewhatsapp.ui
 
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -38,6 +40,13 @@ class FakeWhatsappScreenViewModel @Inject constructor() : ViewModel() {
      */
     fun changeShowScreenState() {
         _showScreen.value = !_showScreen.value!!
+    }
+
+    /**
+     * Delete all items in _messageList
+     */
+    fun clearMessageList() {
+        _messageList.clear()
     }
 
     /**
