@@ -1,5 +1,6 @@
 package com.marti_cv.fakewhatsapp.ui
 
+import android.net.Uri
 import androidx.test.runner.AndroidJUnit4
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
@@ -33,6 +34,8 @@ class FakeWhatsappScreenViewModelTest {
         assert(viewModel.isStartButtonEnabled.value == false)
         assert(viewModel.chatName.value == "")
         assert(viewModel.text.value == "")
+        assert(viewModel.imageUri.value == Uri.EMPTY)
+        assert(viewModel.isDefaultImageSelected.value == true)
     }
 
     @Test
@@ -49,7 +52,9 @@ class FakeWhatsappScreenViewModelTest {
 
     @Test
     fun `If name is to long then name shortens and end with 3dots`() {
-        val nameLength = viewModel.chatName.value!!.length
+        viewModel.addName("01234567890")
+        viewModel.chatName.value?.let { assert(it.contains("...")) }
+
     }
 
     @Test
@@ -116,5 +121,13 @@ class FakeWhatsappScreenViewModelTest {
         assert(viewModel.messageList.isEmpty())
     }
 
+    @Test
+    fun `When photo is selected the isDefaultImageSelected changes`() {
+        val initialValue = viewModel.isDefaultImageSelected.value
+        viewModel.onPhotoSelected()
+        assert(viewModel.isDefaultImageSelected.value != initialValue)
+    }
 
+    @Test
+    fun `When uri changes then uri changes`(){}
 }

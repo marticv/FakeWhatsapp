@@ -48,13 +48,21 @@ class FakeWhatsappScreenViewModel @Inject constructor() : ViewModel() {
         _chatName.value = ""
         _text.value = ""
         _isDefaultImageSelected.value = true
+        _imageUri.value = Uri.EMPTY
+        _isDefaultImageSelected.value = true
     }
 
+    /**
+     * Cange the image uri to the given one
+     */
     fun getUri(uri: Uri){
         _imageUri.value = uri
         onPhotoSelected()
     }
 
+    /**
+     * Change the value of isDefaultImageSelected
+     */
     fun onPhotoSelected() {
         _isDefaultImageSelected.value = !_isDefaultImageSelected.value!!
     }
