@@ -10,6 +10,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.marti_cv.fakewhatsapp.ui.FakeWhatsappScreen
 import com.marti_cv.fakewhatsapp.ui.FakeWhatsappScreenViewModel
+import com.marti_cv.fakewhatsapp.ui.theme.BottomButton
 import com.marti_cv.fakewhatsapp.ui.theme.FakeWhatsappTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +25,8 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    //color = MaterialTheme.colorScheme.background
+                    color = BottomButton
                 ) {
                     FakeWhatsappScreen(viewModel)
                 }
