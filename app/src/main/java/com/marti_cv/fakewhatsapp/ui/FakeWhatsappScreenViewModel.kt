@@ -26,6 +26,9 @@ class FakeWhatsappScreenViewModel @Inject constructor() : ViewModel() {
     private val _isStartButtonEnabled = MutableLiveData<Boolean>()
     val isStartButtonEnabled: LiveData<Boolean> = _isStartButtonEnabled
 
+    private val _isDefaultImageSelected = MutableLiveData<Boolean>()
+    val isDefaultImageSelected: LiveData<Boolean> = _isDefaultImageSelected
+
     private val _chatName = MutableLiveData<String>()
     val chatName: LiveData<String> = _chatName
 
@@ -44,10 +47,16 @@ class FakeWhatsappScreenViewModel @Inject constructor() : ViewModel() {
         _isStartButtonEnabled.value = false
         _chatName.value = ""
         _text.value = ""
+        _isDefaultImageSelected.value = true
     }
 
     fun getUri(uri: Uri){
         _imageUri.value = uri
+        onPhotoSelected()
+    }
+
+    fun onPhotoSelected() {
+        _isDefaultImageSelected.value = !_isDefaultImageSelected.value!!
     }
 
     /**

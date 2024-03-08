@@ -40,15 +40,7 @@ fun FakeWhatsappScreen(viewModel: FakeWhatsappScreenViewModel) {
     val isStartButtonEnabled by viewModel.isStartButtonEnabled.observeAsState(false)
     val text by viewModel.text.observeAsState("")
     val imageUri by viewModel.imageUri.observeAsState(Uri.EMPTY)
-
-    val galleryLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent(),
-        onResult = { uri ->
-            uri?.let {
-                viewModel.getUri(it)
-            }
-        }
-    )
+    val isDefaultPhotoSelected by viewModel.isDefaultImageSelected.observeAsState(true)
 
     val messages: List<MessageModel> = viewModel.messageList
     val controller = LocalSoftwareKeyboardController.current
@@ -65,6 +57,7 @@ fun FakeWhatsappScreen(viewModel: FakeWhatsappScreenViewModel) {
                     viewModel.changeShowScreenState()
                 },
                 chatName = chatName,
+                isDefaultImageSelected = isDefaultPhotoSelected,
                 uri = imageUri
             )
             Body(messageList = messages, modifier = Modifier.constrainAs(body) {
@@ -84,30 +77,13 @@ fun FakeWhatsappScreen(viewModel: FakeWhatsappScreenViewModel) {
                 onClick = { viewModel.changeShowScreenState() },
                 chatName = chatName,
                 changeChatName = { viewModel.addName(it) },
-                isButtonEnabled = isStartButtonEnabled
+                isButtonEnabled = isStartButtonEnabled,
+                isDefaultImageSelected = isDefaultPhotoSelected,
+                imageUri = imageUri,
+                onUriCHanged = { viewModel.getUri(it) },
+                onPhotoClicked = { viewModel.onPhotoSelected() }
             )
-            imageUri?.let {
-                Image(
-                    painter = rememberAsyncImagePainter(model = imageUri),
-                    contentDescription = null,
-                    contentScale = ContentScale.FillBounds,
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .size(36.dp)
-                )
-            }
-
-            TextButton(
-                onClick = {
-                    galleryLauncher.launch("image/*")
-                }
-            ) {
-                Text(
-                    text = "Pick image"
-                )
-            }
         }
-
     }
 
 }

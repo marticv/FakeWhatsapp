@@ -16,7 +16,13 @@ import com.marti_cv.fakewhatsapp.ui.theme.Background
 
 
 @Composable
-fun Header(modifier: Modifier, onClickBack: () -> Unit, chatName: String, uri: Uri) {
+fun Header(
+    modifier: Modifier,
+    onClickBack: () -> Unit,
+    chatName: String,
+    isDefaultImageSelected: Boolean,
+    uri: Uri
+) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -25,7 +31,12 @@ fun Header(modifier: Modifier, onClickBack: () -> Unit, chatName: String, uri: U
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        UserGroup(uri = uri, chatName = chatName, modifier = modifier, onClickBack = { onClickBack() })
+        UserGroup(
+            isDefaultImageSelected = isDefaultImageSelected,
+            uri = uri,
+            chatName = chatName,
+            modifier = modifier,
+            onClickBack = { onClickBack() })
         IconsGroup(modifier = modifier)
     }
 }

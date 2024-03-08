@@ -26,7 +26,13 @@ import com.marti_cv.fakewhatsapp.R
 import com.marti_cv.fakewhatsapp.ui.theme.TopIconTint
 
 @Composable
-fun UserGroup(uri: Uri, chatName: String, modifier: Modifier, onClickBack: () -> Unit) {
+fun UserGroup(
+    isDefaultImageSelected: Boolean,
+    uri: Uri,
+    chatName: String,
+    modifier: Modifier,
+    onClickBack: () -> Unit
+) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Icon(
             imageVector = Icons.Default.ArrowBack,
@@ -34,20 +40,20 @@ fun UserGroup(uri: Uri, chatName: String, modifier: Modifier, onClickBack: () ->
             tint = TopIconTint,
             modifier = modifier
                 .clickable { onClickBack() })
-        if (uri != Uri.EMPTY) {
+        if (!isDefaultImageSelected) {
             Image(
                 painter = rememberAsyncImagePainter(model = uri),
                 contentDescription = "user imager",
-                contentScale = ContentScale.FillBounds,
+                contentScale = ContentScale.Crop,
                 modifier = modifier
                     .clip(CircleShape)
                     .size(36.dp)
             )
         } else {
             Image(
-                painterResource(id = R.drawable.test_image),
+                painterResource(id = R.drawable.avatar),
                 contentDescription = "Receptor image",
-                contentScale = ContentScale.FillBounds,
+                contentScale = ContentScale.Crop,
                 modifier = modifier
                     .clip(CircleShape)
                     .size(36.dp)
